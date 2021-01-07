@@ -8,7 +8,7 @@ module ODEGenProg
 # you have to import everything you need for your module to work
 # if you use a new package, don't forget to add it in the package manager
 using ExprRules, ExprOptimization, Random, Calculus, AbstractTrees, GraphRecipes
-
+# I'm not sure why you export all these functions here below? I think you only need to export the second part beginning from fitness_0
 export GraphRecipes, TreePlot, graphplot, graphplot!
 export AbstractTrees, AnnotationNode, Leaves, PostOrderDFS, PreOrderDFS, ShadowTree, StatelessBFS, Tree, TreeCharSet, TreeIterator, children, print_tree, treemap, treemap!
 export @dag, @dag_cse, @tree, @tree_with_call, LabelledTree, TreeView, make_dag, tikz_representation, walk_tree, walk_tree!
@@ -29,7 +29,7 @@ export crossover, mutate, permutate, genetic_program, fitness_basic, tournament_
 	Returns the grammar used to create and evaluate expression trees for ODE solving in one variable x.
 """
 function define_grammar_1D()
-	grammar = @grammar begin
+	grammar = @grammar begin 
         R = |(1:9) #shortway notation to add all integers to the grammar
         R = R + R
         R = R - R
@@ -75,6 +75,9 @@ for a given expression tree based on a given grammar by evaluating the expressio
 Penalizes deviation from boundary conditions weighted by factor λ = 100. 
 """
 function fitness_0(tree::RuleNode, grammar=grammar)
+	# wouldn't it be nice to have the λ as input variable? Then users can change this themself if they need a different condition. 
+	# Also a little bit information/documentation on the input and output variables would make it a lot easier to understand. 
+
 	S = ExprRules.SymbolTable(grammar) #ExprRule package interpreter, should increase performance according to documentation
 	ex = ExprRules.get_executable(tree, grammar) #gets the expression from a given tree based on the grammar
     loss = 0.  #the goal is to minimize fitness 
@@ -333,7 +336,8 @@ Mutation genetic operator. Picks a random node from an expression tree `a`,
 then replaces the subtree with a random one.
 """
 function mutate(a, p)
-	grammar = define_grammar_1D()
+	grammar = define_grammar_1D() # maybe you could give grammar as input for the function instead of computing it here. 
+	# I guess if you did this for the following functions they would work a little faster. 
 	child = deepcopy(a)
 	if rand() < p #mutation probability p
 		loc = sample(NodeLoc, child) #picks random node from expression tree
