@@ -29,7 +29,7 @@ md""" Genetic programming is an evolutionary algorithm where genotypes are repre
 # ╔═╡ 77a04130-4ef4-11eb-1b0e-6d8916bf8388
 md""" The trees (genotypes) represent expressions that belong to a certain grammar. A grammar specifies the specific constraints (i.e. rules that have to be followed) on the space of possible expressions that we are interested in, i.e. that make sense for the problem at hand. 
 
-The grammar is defined using the very convenient package ExprRules.jl. For first order linear differential equations (with one variable x) it inclused all intigers from 1 to 9, basic functions/operations that can be expected in the solution of and ODE and the variable x. It is as follows:"""
+The grammar is defined using the very convenient package ExprRules.jl. For first order linear differential equations (with one variable x) it includes all integers from 1 to 9, basic functions/operations that can be expected in the solution of and ODE and the variable x. It is as follows:"""
 
 # ╔═╡ 9659f610-3b2c-11eb-132c-cfe5fbcbb7c1
 #general grammar used for solving ODE's
@@ -78,7 +78,7 @@ md"""Similar to genetic algorithms, a genetic program starts from a population t
 md""" For the concenience of this project, the fitness functions I used are what I would call hardcoded fitness functions, i.e. every differential equation has its own fitness function. It is important to note that differential equations are in standard form: f(x,y,y',y'',...) = 0, that the boundary conditions are specified and that we try to construct a solution on an interval that makes sense (i.e. in the interval of existence where the solution can be defined). As an example is the simple differential equation f'(x) - f(x) = 0, with boundary condition f(0) = 1 on the interval [0:1]. The expected analytic solution is f(x) = exp(x).
 
 To make it more concrete, the steps for the fitness evaluation of the population are the following:
-Each expression tree in the population is conceptualized as a solution (i.e. a function) to the differential equation we want to solve. This expression is plugged into the differential equation and is evaluated for N equidistant points in a defined interval. Since the differential equation is in standard form (an given expression that equals to 0) a mean squared error can be calculated for each point and summed to calculate the total fitness. For the example this would give (f'(x) - f(x))^2 for N different values of x. In the same way deviation from the boundary conditions can be penalized. For the example that would give: λ*(f(0) - 1)^2 (boundary conditions are
+Each expression tree in the population is conceptualized as a solution (i.e. a function) to the differential equation we want to solve. This expression is plugged into the differential equation and is evaluated for N equidistant points in a defined interval. Since the differential equation is in standard form (a given expression that equals to 0) a mean squared error can be calculated for each point and summed to calculate the total fitness. For the example this would give (f'(x) - f(x))^2 for N different values of x. In the same way deviation from the boundary conditions can be penalized. For the example that would give: λ*(f(0) - 1)^2 (boundary conditions are
 weighted by factor λ (default = 100) in accordance with Tsoulos and Lagaris (2006). It is thus to be noted that in this case the aim will be to minimize the fitness. 
 """
 
@@ -431,5 +431,5 @@ Tsoulos, I. G., & Lagaris, I. E. (2006). Solving differential equations with gen
 # ╟─f31bce30-4ef2-11eb-2d18-43c8990a3555
 # ╠═404fc740-4581-11eb-0071-dbe0af850d39
 # ╟─215e21a0-4f05-11eb-2b91-050f91ed3424
-# ╟─0b8fb470-458b-11eb-2f41-cdd2935a94fd
+# ╠═0b8fb470-458b-11eb-2f41-cdd2935a94fd
 # ╟─4d18a040-4eec-11eb-31c9-4f2176b40823
