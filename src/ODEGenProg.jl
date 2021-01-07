@@ -309,7 +309,7 @@ end
 	crossover(p::Float64, a::RuleNode, b::RuleNode, max_depth::Int)
 Crossover genetic operator. Picks a random node from an expression tree `a`, then picks a random node 
 from an expression tree `b` that has the same type, then replaces the subtree. The crossover is constrained to 
-a maximum depth `max depth` so the size of expression trees doesn't get too large.
+a maximum depth `max_depth` so the size of expression trees doesn't get too large.
 """
 function crossover(p, a, b, max_depth)
 	grammar = define_grammar_1D()
